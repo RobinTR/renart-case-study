@@ -16,8 +16,6 @@ public class GoldRateServiceImpl implements GoldRateService {
 
     @Override
     public GoldRateResponse getCurrentGoldRateInUsd() {
-        String currency = "USD";
-
-        return goldApiClient.getGoldPrice(currency).block();
+        return goldApiClient.getGoldPrice().block();
     }
 }

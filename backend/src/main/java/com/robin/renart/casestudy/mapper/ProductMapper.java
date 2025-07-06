@@ -5,13 +5,11 @@ import com.robin.renart.casestudy.model.Product;
 import com.robin.renart.casestudy.model.RingColor;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductMapper {
-    public ProductView mapToView(Product product, BigDecimal goldPrice) {
+    public static ProductView mapToView(Product product, BigDecimal goldPrice) {
         return ProductView.builder()
                 .name(product.getName())
                 .priceText(goldPrice)
@@ -20,7 +18,7 @@ public class ProductMapper {
                 .build();
     }
 
-    private Map<String, String> convertImageMap(Map<RingColor, String> images) {
+    private static Map<String, String> convertImageMap(Map<RingColor, String> images) {
         return images.entrySet().stream()
                 .collect(Collectors.toMap(e -> e.getKey().name(), Map.Entry::getValue));
     }

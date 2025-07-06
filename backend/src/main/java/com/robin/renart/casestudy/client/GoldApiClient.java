@@ -9,6 +9,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class GoldApiClient {
     private final WebClient webClient;
+    private final String currency = "USD";
+    private final String metal = "XAU";
 
     public GoldApiClient(
             WebClient.Builder builder,
@@ -22,9 +24,9 @@ public class GoldApiClient {
                 .build();
     }
 
-    public Mono<GoldRateResponse> getGoldPrice(String currency) {
+    public Mono<GoldRateResponse> getGoldPrice() {
         return webClient.get()
-                .uri("/XAU/{currency}", currency)
+                .uri("/{metal}/{currency}", metal, currency)
                 .retrieve()
                 .bodyToMono(GoldRateResponse.class);
     }
