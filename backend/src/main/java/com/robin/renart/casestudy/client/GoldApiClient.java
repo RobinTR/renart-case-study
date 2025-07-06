@@ -1,5 +1,6 @@
 package com.robin.renart.casestudy.client;
 
+import com.robin.renart.casestudy.dto.GoldApiStatusResponse;
 import com.robin.renart.casestudy.dto.GoldRateResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,15 @@ public class GoldApiClient {
                 .defaultHeader("x-access-token", API_KEY)
                 .defaultHeader("Content-Type", "application/json")
                 .build();
+    }
+
+    public Mono<Boolean> checkStatus() {
+        return webClient.get()
+                .uri("/status")
+                .retrieve()
+                .bodyToMono(GoldApiStatusResponse.class)
+                .map(GoldApiStatusResponse::getResult)
+                .onErrorReturn(false);
     }
 
     public Mono<GoldRateResponse> getGoldPrice() {

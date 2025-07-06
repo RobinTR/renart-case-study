@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductView> getAllProducts() {
+        checkGoldApiHealth();
         List<Product> products = productDataLoader.loadProducts();
         GoldRateResponse response = goldApiClient.getGoldPrice().block();
         BigDecimal goldPrice = Optional.ofNullable(response)
@@ -37,6 +38,8 @@ public class ProductServiceImpl implements ProductService {
         if (BigDecimal.ZERO.compareTo(goldPrice) == 0) {
             throw new GoldPriceUnavailableException("An error occurred while fetching the gold price.");
         }
+
+        System.out.println("Gold price from API: " + goldPrice);
 
         //(popularityScore + 1) * weight * goldPrice(from api)
         return products.stream()
@@ -48,5 +51,13 @@ public class ProductServiceImpl implements ProductService {
                     );
                     return ProductMapper.mapToView(product, price);
                 }).toList();
+    }
+
+    private void checkGoldApiHealth() {
+        Boolean isHealthy = goldApiClient.checkStatus().block();
+
+        if (Boolean.FALSE.equals(isHealthy)) {
+            throw new GoldPriceUnavailableException("Gold API is currently unavailable.");
+        }
     }
 }
