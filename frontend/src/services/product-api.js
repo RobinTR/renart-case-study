@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://13.60.241.103/api/v1/'
+    baseURL: 'https://renart-case-study-qls3.onrender.com/api/v1/'
 });
 
 export const fetchProducts = async () => {
