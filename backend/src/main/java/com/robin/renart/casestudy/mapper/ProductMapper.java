@@ -13,7 +13,7 @@ public class ProductMapper {
         return ProductView.builder()
                 .name(product.getName())
                 .priceText(goldPrice)
-                .ratingOutOfFive(product.getPopularityScore() + 1)
+                .ratingOutOfFive(product.getPopularityScore())
                 .imageByColor(convertImageMap(product.getImages()))
                 .build();
     }

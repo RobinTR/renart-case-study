@@ -41,7 +41,6 @@ public class ProductServiceImpl implements ProductService {
 
         System.out.println("Gold price from API: " + goldPrice);
 
-        //(popularityScore + 1) * weight * goldPrice(from api)
         return products.stream()
                 .map(product -> {
                     BigDecimal price = PriceCalculator.calculatePrice(
