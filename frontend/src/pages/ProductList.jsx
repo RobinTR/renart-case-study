@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
-import { fetchProducts } from '../services/product-api';
-import ProductCarousel from '../components/ProductCarousel';
-import styles from '../styles/product-list.module.css';
-
-import spinnerStyles from '../styles/spinner.module.css';
-
-
+import { useEffect, useState } from "react";
+import { fetchProducts } from "../services/productApi";
+import ProductCarousel from "../components/ProductCarousel";
+import styles from "../styles/ProductList.module.css";
+import spinnerStyles from "../styles/Spinner.module.css";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +13,11 @@ const ProductList = () => {
     setLoading(true);
     fetchProducts()
       .then(setProducts)
-      .catch(() => setError('Sorry, there was a problem fetching product data from the server. Please try again later.'))
+      .catch(() =>
+        setError(
+          "Sorry, there was a problem fetching product data from the server. Please try again later."
+        )
+      )
       .finally(() => setLoading(false));
   }, []);
 
@@ -25,7 +26,7 @@ const ProductList = () => {
       <div className={styles.container}>
         <h2 className={styles.title}>Product List</h2>
         <div className={spinnerStyles.spinner}>
-          <div className={spinnerStyles['spinner-circle']} />
+          <div className={spinnerStyles["spinner-circle"]} />
         </div>
       </div>
     );
@@ -35,7 +36,7 @@ const ProductList = () => {
     return (
       <div className={styles.container}>
         <h2 className={styles.title}>Product List</h2>
-        <div style={{ color: 'red', textAlign: 'center', marginTop: 32 }}>
+        <div style={{ color: "red", textAlign: "center", marginTop: 32 }}>
           {error}
         </div>
       </div>

@@ -1,7 +1,6 @@
-
 import React from "react";
-import styles from "../styles/product-card.module.css";
-import { renderStars, normalizeRating } from "../utils/product-utils";
+import styles from "../styles/ProductCard.module.css";
+import { renderStars, normalizeRating } from "../utils/productUtils";
 
 const ProductCard = ({ product }) => {
   const [selectedColor, setSelectedColor] = React.useState("yellow");
@@ -21,7 +20,9 @@ const ProductCard = ({ product }) => {
         alt={`${product.name} - ${selectedColor}`}
         className={styles.image}
       />
-      <div className={styles.productName}>{product.name || 'Product Title'}</div>
+      <div className={styles.productName}>
+        {product.name || "Product Title"}
+      </div>
       <div className={styles.productPrice}>
         ${Number(product.priceText).toFixed(2)} USD
       </div>
@@ -30,7 +31,7 @@ const ProductCard = ({ product }) => {
           <button
             key={color}
             className={`${styles.colorCircle} ${styles[color]} ${
-              selectedColor === color ? styles.active : ''
+              selectedColor === color ? styles.active : ""
             }`}
             onClick={() => setSelectedColor(color)}
             aria-label={`Select ${color} color`}
@@ -38,13 +39,15 @@ const ProductCard = ({ product }) => {
         ))}
       </div>
       <div className={styles.colorLabel}>
-        {selectedColor === 'yellow' && 'Yellow Gold'}
-        {selectedColor === 'white' && 'White Gold'}
-        {selectedColor === 'rose' && 'Rose Gold'}
+        {selectedColor === "yellow" && "Yellow Gold"}
+        {selectedColor === "white" && "White Gold"}
+        {selectedColor === "rose" && "Rose Gold"}
       </div>
       <div className={styles.ratingStars}>
         {renderStars(normalizedRating)}
-        <span className={styles.ratingValue}>{normalizedRating.toFixed(1)}/5</span>
+        <span className={styles.ratingValue}>
+          {normalizedRating.toFixed(1)}/5
+        </span>
       </div>
     </div>
   );
